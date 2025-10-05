@@ -59,8 +59,8 @@ function groupByTeam (players, minGames = 0, key = 'team') {
 		.map(p => {
 			// Injury system: initialize status and risk
 			const gamesLast = Number(p.games_played || 0);
-			// Risk: missing games last year / 82, min 0.01, max 0.2
-			const risk = Math.min(0.1, Math.max(0.01, (82 - gamesLast) / 82));
+			// Risk: missing games last year / 82,
+			const risk = Math.min(1, Math.max(0.01, (82 - gamesLast) / 9 / 82));
 			return {
 				...p,
 				injuryStatus: 'healthy',
@@ -458,30 +458,31 @@ fs.writeFileSync(
 );
 console.log('Season results exported to /results/season.json');
 
-// Print skater stats for Leon Draisaitl
-skaters_new.filter(s => s.name === 'Leon Draisaitl').forEach(s => {
-	console.log(`${s.name} (${s.team}): ${s.I_F_goals} goals on ${s.I_F_shotsOnGoal} shots, ${s.I_F_assists} assists, in ${s.games_played} games`);
-});
-
 // Calculate points earned by each player
 // Goals = 3 points
 // Assists = 2 points
 // Shots = 0.25 points
 // Hits = 0.5 points
 // Blocks = 0.5 points
-console.log('\nSeason Skater Stats:');
-skaters_new = skaters_new.map(s => {
-	const goals = Number(s.I_F_goals || 0);
-	const shots = Number(s.I_F_shotsOnGoal || 0);
-	const assists = Number(s.I_F_assists || 0);
-	const hits = Number(s.I_F_hits || 0);
-	const shotsBlocked = Number(s.shotsBlockedByPlayer || 0);
-	const points = (goals * 3) + (assists * 2) + (shots * 0.25) + (hits * 0.5) + (shotsBlocked * 0.5);
-	return {
-		...s,
-		points
-	};
-}).sort((a, b) => b.points - a.points);
+// console.log('\nSeason Skater Stats:');
+// skaters_new = skaters_new.map(s => {
+// 	const goals = Number(s.I_F_goals || 0);
+// 	const shots = Number(s.I_F_shotsOnGoal || 0);
+// 	const assists = Number(s.I_F_assists || 0);
+// 	const hits = Number(s.I_F_hits || 0);
+// 	const shotsBlocked = Number(s.shotsBlockedByPlayer || 0);
+// 	const points = (goals * 3) + (assists * 2) + (shots * 0.25) + (hits * 0.5) + (shotsBlocked * 0.5);
+// 	return {
+// 		...s,
+// 		points
+// 	};
+// }).sort((a, b) => b.points - a.points);
+
+fs.writeFileSync(
+	path.join(__dirname, 'results', 'skaters.json'),
+	JSON.stringify(skaters_new, null, 2),
+	'utf8'
+);
 
 // Print top 10 players by points in each position
 ['C', 'L', 'R', 'D'].forEach(position => {
@@ -496,18 +497,24 @@ skaters_new = skaters_new.map(s => {
 // Shutouts = 2.5 points
 // Saves = 0.3 points
 // Goals against = -1 point
-console.log('\nSeason Goalie Stats:');
-goalies_new = goalies_new.map(g => {
-	const wins = Number(g.wins || 0);
-	const shutouts = Number(g.shutouts || 0);
-	const saves = Number(g.unblocked_shot_attempts - g.goals || 0);
-	const goalsAgainst = Number(g.goals || 0);
-	const points = Math.round((wins * 2.5) + (shutouts * 2.5) + (saves * 0.3) + (goalsAgainst * -1));
-	return {
-		...g,
-		points
-	};
-}).sort((a, b) => b.points - a.points);
+// console.log('\nSeason Goalie Stats:');
+// goalies_new = goalies_new.map(g => {
+// 	const wins = Number(g.wins || 0);
+// 	const shutouts = Number(g.shutouts || 0);
+// 	const saves = Number(g.unblocked_shot_attempts - g.goals || 0);
+// 	const goalsAgainst = Number(g.goals || 0);
+// 	const points = Math.round((wins * 2.5) + (shutouts * 2.5) + (saves * 0.3) + (goalsAgainst * -1));
+// 	return {
+// 		...g,
+// 		points
+// 	};
+// }).sort((a, b) => b.points - a.points);
+
+fs.writeFileSync(
+	path.join(__dirname, 'results', 'goalies.json'),
+	JSON.stringify(goalies_new, null, 2),
+	'utf8'
+);
 
 // Print top 10 goalies by points
 console.log(`\nTop 10 Goalies by Points:`);

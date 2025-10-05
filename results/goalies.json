@@ -1,0 +1,722 @@
+[
+  {
+    "name": "Vitek Vanecek",
+    "team": "FLA",
+    "goals": "89",
+    "unblocked_shot_attempts": "772",
+    "games_played": "31",
+    "shutouts": "2",
+    "wins": "18"
+  },
+  {
+    "name": "Spencer Knight",
+    "team": "CHI",
+    "goals": "176",
+    "unblocked_shot_attempts": "1370",
+    "games_played": "53",
+    "shutouts": "1",
+    "wins": "19"
+  },
+  {
+    "name": "David Rittich",
+    "team": "LAK",
+    "goals": "100",
+    "unblocked_shot_attempts": "864",
+    "games_played": "34",
+    "shutouts": "4",
+    "wins": "14"
+  },
+  {
+    "name": "Scott Wedgewood",
+    "team": "COL",
+    "goals": "105",
+    "unblocked_shot_attempts": "867",
+    "games_played": "34",
+    "shutouts": "1",
+    "wins": "19"
+  },
+  {
+    "name": "Igor Shesterkin",
+    "team": "NYR",
+    "goals": "172",
+    "unblocked_shot_attempts": "1491",
+    "games_played": "57",
+    "shutouts": "1",
+    "wins": "29"
+  },
+  {
+    "name": "Joel Blomqvist",
+    "team": "PIT",
+    "goals": "79",
+    "unblocked_shot_attempts": "633",
+    "games_played": "24",
+    "shutouts": "1",
+    "wins": "9"
+  },
+  {
+    "name": "Charlie Lindgren",
+    "team": "WSH",
+    "goals": "121",
+    "unblocked_shot_attempts": "1158",
+    "games_played": "45",
+    "shutouts": "0",
+    "wins": "34"
+  },
+  {
+    "name": "Joonas Korpisalo",
+    "team": "BOS",
+    "goals": "141",
+    "unblocked_shot_attempts": "1101",
+    "games_played": "44",
+    "shutouts": "1",
+    "wins": "15"
+  },
+  {
+    "name": "Connor Ingram",
+    "team": "EDM",
+    "goals": "52",
+    "unblocked_shot_attempts": "421",
+    "games_played": "17",
+    "shutouts": "2",
+    "wins": "11"
+  },
+  {
+    "name": "Dustin Wolf",
+    "team": "CGY",
+    "goals": "178",
+    "unblocked_shot_attempts": "1403",
+    "games_played": "53",
+    "shutouts": "0",
+    "wins": "18"
+  },
+  {
+    "name": "Adin Hill",
+    "team": "VGK",
+    "goals": "144",
+    "unblocked_shot_attempts": "1310",
+    "games_played": "51",
+    "shutouts": "2",
+    "wins": "32"
+  },
+  {
+    "name": "Darcy Kuemper",
+    "team": "LAK",
+    "goals": "163",
+    "unblocked_shot_attempts": "1226",
+    "games_played": "48",
+    "shutouts": "1",
+    "wins": "20"
+  },
+  {
+    "name": "Joseph Woll",
+    "team": "TOR",
+    "goals": "103",
+    "unblocked_shot_attempts": "935",
+    "games_played": "35",
+    "shutouts": "1",
+    "wins": "23"
+  },
+  {
+    "name": "Sam Montembeault",
+    "team": "MTL",
+    "goals": "172",
+    "unblocked_shot_attempts": "1345",
+    "games_played": "53",
+    "shutouts": "4",
+    "wins": "20"
+  },
+  {
+    "name": "Joey Daccord",
+    "team": "SEA",
+    "goals": "138",
+    "unblocked_shot_attempts": "1164",
+    "games_played": "45",
+    "shutouts": "2",
+    "wins": "18"
+  },
+  {
+    "name": "Lukas Dostal",
+    "team": "ANA",
+    "goals": "132",
+    "unblocked_shot_attempts": "1111",
+    "games_played": "44",
+    "shutouts": "3",
+    "wins": "17"
+  },
+  {
+    "name": "Jeremy Swayman",
+    "team": "BOS",
+    "goals": "133",
+    "unblocked_shot_attempts": "988",
+    "games_played": "38",
+    "shutouts": "0",
+    "wins": "9"
+  },
+  {
+    "name": "Ukko-Pekka Luukkonen",
+    "team": "BUF",
+    "goals": "171",
+    "unblocked_shot_attempts": "1487",
+    "games_played": "57",
+    "shutouts": "3",
+    "wins": "28"
+  },
+  {
+    "name": "Jonathan Quick",
+    "team": "NYR",
+    "goals": "81",
+    "unblocked_shot_attempts": "637",
+    "games_played": "25",
+    "shutouts": "2",
+    "wins": "11"
+  },
+  {
+    "name": "Pyotr Kochetkov",
+    "team": "CAR",
+    "goals": "153",
+    "unblocked_shot_attempts": "1138",
+    "games_played": "45",
+    "shutouts": "1",
+    "wins": "18"
+  },
+  {
+    "name": "Nico Daws",
+    "team": "NJD",
+    "goals": "21",
+    "unblocked_shot_attempts": "143",
+    "games_played": "5",
+    "shutouts": "0",
+    "wins": "2"
+  },
+  {
+    "name": "Juuse Saros",
+    "team": "NSH",
+    "goals": "125",
+    "unblocked_shot_attempts": "1177",
+    "games_played": "44",
+    "shutouts": "4",
+    "wins": "21"
+  },
+  {
+    "name": "Daniil Tarasov",
+    "team": "CBJ",
+    "goals": "40",
+    "unblocked_shot_attempts": "314",
+    "games_played": "12",
+    "shutouts": "0",
+    "wins": "10"
+  },
+  {
+    "name": "Arturs Silovs",
+    "team": "VAN",
+    "goals": "59",
+    "unblocked_shot_attempts": "386",
+    "games_played": "15",
+    "shutouts": "1",
+    "wins": "4"
+  },
+  {
+    "name": "Dan Vladar",
+    "team": "CGY",
+    "goals": "75",
+    "unblocked_shot_attempts": "726",
+    "games_played": "29",
+    "shutouts": "1",
+    "wins": "12"
+  },
+  {
+    "name": "Mackenzie Blackwood",
+    "team": "COL",
+    "goals": "129",
+    "unblocked_shot_attempts": "1208",
+    "games_played": "48",
+    "shutouts": "2",
+    "wins": "30"
+  },
+  {
+    "name": "Karel Vejmelka",
+    "team": "UTA",
+    "goals": "220",
+    "unblocked_shot_attempts": "1823",
+    "games_played": "71",
+    "shutouts": "7",
+    "wins": "35"
+  },
+  {
+    "name": "Connor Hellebuyck",
+    "team": "WPG",
+    "goals": "157",
+    "unblocked_shot_attempts": "1458",
+    "games_played": "58",
+    "shutouts": "5",
+    "wins": "36"
+  },
+  {
+    "name": "Jake Oettinger",
+    "team": "DAL",
+    "goals": "129",
+    "unblocked_shot_attempts": "1367",
+    "games_played": "52",
+    "shutouts": "7",
+    "wins": "35"
+  },
+  {
+    "name": "Petr Mrazek",
+    "team": "DET",
+    "goals": "98",
+    "unblocked_shot_attempts": "710",
+    "games_played": "28",
+    "shutouts": "1",
+    "wins": "9"
+  },
+  {
+    "name": "Samuel Ersson",
+    "team": "PHI",
+    "goals": "196",
+    "unblocked_shot_attempts": "1764",
+    "games_played": "67",
+    "shutouts": "3",
+    "wins": "24"
+  },
+  {
+    "name": "Jordan Binnington",
+    "team": "STL",
+    "goals": "143",
+    "unblocked_shot_attempts": "1240",
+    "games_played": "49",
+    "shutouts": "1",
+    "wins": "18"
+  },
+  {
+    "name": "Filip Gustavsson",
+    "team": "MIN",
+    "goals": "151",
+    "unblocked_shot_attempts": "1399",
+    "games_played": "55",
+    "shutouts": "2",
+    "wins": "29"
+  },
+  {
+    "name": "Tristan Jarry",
+    "team": "PIT",
+    "goals": "177",
+    "unblocked_shot_attempts": "1466",
+    "games_played": "58",
+    "shutouts": "5",
+    "wins": "25"
+  },
+  {
+    "name": "Ilya Sorokin",
+    "team": "NYI",
+    "goals": "157",
+    "unblocked_shot_attempts": "1280",
+    "games_played": "51",
+    "shutouts": "0",
+    "wins": "19"
+  },
+  {
+    "name": "Andrei Vasilevskiy",
+    "team": "TBL",
+    "goals": "165",
+    "unblocked_shot_attempts": "1554",
+    "games_played": "60",
+    "shutouts": "5",
+    "wins": "36"
+  },
+  {
+    "name": "Linus Ullmark",
+    "team": "OTT",
+    "goals": "102",
+    "unblocked_shot_attempts": "863",
+    "games_played": "36",
+    "shutouts": "0",
+    "wins": "25"
+  },
+  {
+    "name": "Alexandar Georgiev",
+    "team": "SJS",
+    "goals": "126",
+    "unblocked_shot_attempts": "1037",
+    "games_played": "40",
+    "shutouts": "1",
+    "wins": "11"
+  },
+  {
+    "name": "Ilya Samsonov",
+    "team": "VGK",
+    "goals": "89",
+    "unblocked_shot_attempts": "814",
+    "games_played": "31",
+    "shutouts": "3",
+    "wins": "18"
+  },
+  {
+    "name": "Alex Nedeljkovic",
+    "team": "SJS",
+    "goals": "64",
+    "unblocked_shot_attempts": "550",
+    "games_played": "22",
+    "shutouts": "2",
+    "wins": "8"
+  },
+  {
+    "name": "Devon Levi",
+    "team": "BUF",
+    "goals": "22",
+    "unblocked_shot_attempts": "204",
+    "games_played": "8",
+    "shutouts": "1",
+    "wins": "3"
+  },
+  {
+    "name": "Elvis Merzlikins",
+    "team": "CBJ",
+    "goals": "122",
+    "unblocked_shot_attempts": "1132",
+    "games_played": "44",
+    "shutouts": "2",
+    "wins": "33"
+  },
+  {
+    "name": "Arvid Soderblom",
+    "team": "CHI",
+    "goals": "80",
+    "unblocked_shot_attempts": "731",
+    "games_played": "29",
+    "shutouts": "4",
+    "wins": "13"
+  },
+  {
+    "name": "Casey DeSmith",
+    "team": "DAL",
+    "goals": "91",
+    "unblocked_shot_attempts": "793",
+    "games_played": "30",
+    "shutouts": "2",
+    "wins": "19"
+  },
+  {
+    "name": "Cam Talbot",
+    "team": "DET",
+    "goals": "84",
+    "unblocked_shot_attempts": "812",
+    "games_played": "31",
+    "shutouts": "2",
+    "wins": "17"
+  },
+  {
+    "name": "Anthony Stolarz",
+    "team": "TOR",
+    "goals": "79",
+    "unblocked_shot_attempts": "977",
+    "games_played": "39",
+    "shutouts": "4",
+    "wins": "30"
+  },
+  {
+    "name": "Calvin Pickard",
+    "team": "EDM",
+    "goals": "68",
+    "unblocked_shot_attempts": "518",
+    "games_played": "21",
+    "shutouts": "2",
+    "wins": "10"
+  },
+  {
+    "name": "Kevin Lankinen",
+    "team": "VAN",
+    "goals": "137",
+    "unblocked_shot_attempts": "1135",
+    "games_played": "44",
+    "shutouts": "1",
+    "wins": "21"
+  },
+  {
+    "name": "Sergei Bobrovsky",
+    "team": "FLA",
+    "goals": "157",
+    "unblocked_shot_attempts": "1300",
+    "games_played": "51",
+    "shutouts": "0",
+    "wins": "26"
+  },
+  {
+    "name": "Leevi Merilinen",
+    "team": "OTT",
+    "goals": "28",
+    "unblocked_shot_attempts": "205",
+    "games_played": "8",
+    "shutouts": "0",
+    "wins": "2"
+  },
+  {
+    "name": "Eric Comrie",
+    "team": "WPG",
+    "goals": "65",
+    "unblocked_shot_attempts": "626",
+    "games_played": "24",
+    "shutouts": "2",
+    "wins": "14"
+  },
+  {
+    "name": "Jacob Markstrom",
+    "team": "NJD",
+    "goals": "162",
+    "unblocked_shot_attempts": "1385",
+    "games_played": "54",
+    "shutouts": "2",
+    "wins": "32"
+  },
+  {
+    "name": "Justus Annunen",
+    "team": "NSH",
+    "goals": "121",
+    "unblocked_shot_attempts": "971",
+    "games_played": "38",
+    "shutouts": "1",
+    "wins": "12"
+  },
+  {
+    "name": "Logan Thompson",
+    "team": "WSH",
+    "goals": "107",
+    "unblocked_shot_attempts": "952",
+    "games_played": "37",
+    "shutouts": "1",
+    "wins": "19"
+  },
+  {
+    "name": "Jaxson Stauber",
+    "team": "UTA",
+    "goals": "25",
+    "unblocked_shot_attempts": "281",
+    "games_played": "11",
+    "shutouts": "1",
+    "wins": "4"
+  },
+  {
+    "name": "John Gibson",
+    "team": "ANA",
+    "goals": "81",
+    "unblocked_shot_attempts": "677",
+    "games_played": "26",
+    "shutouts": "0",
+    "wins": "8"
+  },
+  {
+    "name": "Dustin Tokarski",
+    "team": "CAR",
+    "goals": "21",
+    "unblocked_shot_attempts": "138",
+    "games_played": "5",
+    "shutouts": "0",
+    "wins": "0"
+  },
+  {
+    "name": "Marc-Andre Fleury",
+    "team": "MIN",
+    "goals": "87",
+    "unblocked_shot_attempts": "679",
+    "games_played": "27",
+    "shutouts": "0",
+    "wins": "16"
+  },
+  {
+    "name": "Anton Forsberg",
+    "team": "OTT",
+    "goals": "102",
+    "unblocked_shot_attempts": "968",
+    "games_played": "38",
+    "shutouts": "3",
+    "wins": "21"
+  },
+  {
+    "name": "Frederik Andersen",
+    "team": "CAR",
+    "goals": "62",
+    "unblocked_shot_attempts": "514",
+    "games_played": "20",
+    "shutouts": "1",
+    "wins": "10"
+  },
+  {
+    "name": "Stuart Skinner",
+    "team": "EDM",
+    "goals": "132",
+    "unblocked_shot_attempts": "1144",
+    "games_played": "44",
+    "shutouts": "3",
+    "wins": "25"
+  },
+  {
+    "name": "Jake Allen",
+    "team": "NJD",
+    "goals": "63",
+    "unblocked_shot_attempts": "538",
+    "games_played": "23",
+    "shutouts": "1",
+    "wins": "13"
+  },
+  {
+    "name": "Alex Lyon",
+    "team": "DET",
+    "goals": "59",
+    "unblocked_shot_attempts": "595",
+    "games_played": "23",
+    "shutouts": "3",
+    "wins": "9"
+  },
+  {
+    "name": "Jonas Johansson",
+    "team": "TBL",
+    "goals": "79",
+    "unblocked_shot_attempts": "570",
+    "games_played": "22",
+    "shutouts": "0",
+    "wins": "14"
+  },
+  {
+    "name": "Georgi Romanov",
+    "team": "SJS",
+    "goals": "18",
+    "unblocked_shot_attempts": "124",
+    "games_played": "5",
+    "shutouts": "0",
+    "wins": "1"
+  },
+  {
+    "name": "Jakub Dobes",
+    "team": "MTL",
+    "goals": "32",
+    "unblocked_shot_attempts": "346",
+    "games_played": "13",
+    "shutouts": "0",
+    "wins": "10"
+  },
+  {
+    "name": "Jet Greaves",
+    "team": "CBJ",
+    "goals": "22",
+    "unblocked_shot_attempts": "195",
+    "games_played": "8",
+    "shutouts": "0",
+    "wins": "4"
+  },
+  {
+    "name": "Semyon Varlamov",
+    "team": "NYI",
+    "goals": "33",
+    "unblocked_shot_attempts": "321",
+    "games_played": "12",
+    "shutouts": "1",
+    "wins": "3"
+  },
+  {
+    "name": "Philipp Grubauer",
+    "team": "SEA",
+    "goals": "115",
+    "unblocked_shot_attempts": "939",
+    "games_played": "37",
+    "shutouts": "2",
+    "wins": "13"
+  },
+  {
+    "name": "Joel Hofer",
+    "team": "STL",
+    "goals": "96",
+    "unblocked_shot_attempts": "911",
+    "games_played": "33",
+    "shutouts": "3",
+    "wins": "16"
+  },
+  {
+    "name": "Yaroslav Askarov",
+    "team": "SJS",
+    "goals": "50",
+    "unblocked_shot_attempts": "422",
+    "games_played": "15",
+    "shutouts": "1",
+    "wins": "2"
+  },
+  {
+    "name": "Ville Husso",
+    "team": "ANA",
+    "goals": "33",
+    "unblocked_shot_attempts": "290",
+    "games_played": "12",
+    "shutouts": "2",
+    "wins": "7"
+  },
+  {
+    "name": "Marcus Hogberg",
+    "team": "NYI",
+    "goals": "60",
+    "unblocked_shot_attempts": "523",
+    "games_played": "19",
+    "shutouts": "1",
+    "wins": "6"
+  },
+  {
+    "name": "Ivan Fedotov",
+    "team": "CBJ",
+    "goals": "64",
+    "unblocked_shot_attempts": "459",
+    "games_played": "18",
+    "shutouts": "0",
+    "wins": "12"
+  },
+  {
+    "name": "Aleksei Kolosov",
+    "team": "PHI",
+    "goals": "36",
+    "unblocked_shot_attempts": "385",
+    "games_played": "15",
+    "shutouts": "2",
+    "wins": "5"
+  },
+  {
+    "name": "Thatcher Demko",
+    "team": "VAN",
+    "goals": "78",
+    "unblocked_shot_attempts": "604",
+    "games_played": "23",
+    "shutouts": "0",
+    "wins": "10"
+  },
+  {
+    "name": "Cayden Primeau",
+    "team": "MTL",
+    "goals": "53",
+    "unblocked_shot_attempts": "415",
+    "games_played": "16",
+    "shutouts": "1",
+    "wins": "5"
+  },
+  {
+    "name": "Spencer Martin",
+    "team": "CAR",
+    "goals": "44",
+    "unblocked_shot_attempts": "296",
+    "games_played": "12",
+    "shutouts": "0",
+    "wins": "5"
+  },
+  {
+    "name": "Dennis Hildeby",
+    "team": "TOR",
+    "goals": "22",
+    "unblocked_shot_attempts": "191",
+    "games_played": "8",
+    "shutouts": "1",
+    "wins": "4"
+  },
+  {
+    "name": "James Reimer",
+    "team": "BUF",
+    "goals": "48",
+    "unblocked_shot_attempts": "451",
+    "games_played": "17",
+    "shutouts": "1",
+    "wins": "9"
+  }
+]
