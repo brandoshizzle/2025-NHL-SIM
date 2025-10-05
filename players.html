@@ -41,6 +41,7 @@
 							<th class="px-4 py-2">SOG</th>
 							<th class="px-4 py-2">Hits</th>
 							<th class="px-4 py-2">Blocks</th>
+							<th class="px-4 py-2">Plus/Minus</th>
 							<th class="px-4 py-2">Points</th>
 							<th class="px-4 py-2">Taken</th>
 						</tr>
@@ -99,6 +100,7 @@
             ${p.wins !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.wins}</td>` : ''}
             ${p.shutouts !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.shutouts}</td>` : ''}
             ${p.unblocked_shot_attempts !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.unblocked_shot_attempts - p.goals}</td>` : ''}
+            ${p.OnIce_F_goals !== undefined ? `<td class=\"px-4 py-2 text-center\">${Number(p.OnIce_F_goals || 0) - Number(p.OnIce_A_goals || 0)}</td>` : ''}
             ${p.goals !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.goals}</td>` : ''}
             <td class="px-4 py-2 text-center font-bold">${p.points !== undefined ? p.points.toFixed(2) : ''}</td>
             <td class="px-4 py-2 text-center">

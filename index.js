@@ -167,14 +167,10 @@ function goalEstimator (teamSkaters, opponentGoalie) {
 				});
 			}
 		}
-		// Simulate assists: proportional to goals, using player's assist rate
-		// Each goal gets up to 2 assists, distributed among teammates
-		// We'll estimate assists for this player as: (player's avg assists per game / team total avg assists per game) * team goals
-		// For simplicity, here: assists = Math.round(goals * (avgAssists / (avgGoals + 0.01)))
-		// let assists = 0;
-		// if (avgGoals > 0) {
-		//     assists = Math.round(goals * (avgAssists / avgGoals));
-		// }
+
+		// Estimate on ice goals for and against
+		const estimatedOnIceF = Math.round(s.OnIce_F_goals / s.games_played + (Math.random() * 2 - 1));
+		const estimatedOnIceA = Math.round(s.OnIce_A_goals / s.games_played + (Math.random() * 2 - 1));
 		// Injury check: each game, player can get injured
 		let injuredThisGame = false;
 		if (Math.random() < s.injuryRisk) {
@@ -192,6 +188,8 @@ function goalEstimator (teamSkaters, opponentGoalie) {
 			goals,
 			hits,
 			blocks,
+			onIceF: estimatedOnIceF,
+			onIceA: estimatedOnIceA,
 			injuryName: s.injuryName,
 			injuryStatus: s.injuryStatus,
 			injuryGamesLeft: s.injuryGamesLeft,
@@ -238,6 +236,8 @@ function goalEstimator (teamSkaters, opponentGoalie) {
 			existing.games_played = (Number(existing.games_played || 0) + 1).toString();
 			existing.I_F_hits = (Number(existing.I_F_hits || 0) + p.hits).toString();
 			existing.shotsBlockedByPlayer = (Number(existing.shotsBlockedByPlayer || 0) + p.blocks).toString();
+			existing.OnIce_A_goals = (Number(existing.OnIce_A_goals || 0) + p.onIceA).toString();
+			existing.OnIce_F_goals = (Number(existing.OnIce_F_goals || 0) + p.onIceF).toString();
 		} else {
 			skaters_new.push({
 				name: p.name,
@@ -249,6 +249,8 @@ function goalEstimator (teamSkaters, opponentGoalie) {
 				I_F_secondaryAssists: p.I_F_secondaryAssists.toString(),
 				I_F_hits: p.hits.toString(),
 				shotsBlockedByPlayer: '0',
+				OnIce_A_goals: p.onIceA.toString(),
+				OnIce_F_goals: p.onIceF.toString(),
 			});
 		}
 	});
@@ -284,7 +286,10 @@ function simulateGame (game) {
 					injuryRisk: s.injuryRisk,
 					I_F_primaryAssists: (Number(s.I_F_primaryAssists || 0) + Number(updated.I_F_primaryAssists || 0)).toString(),
 					I_F_secondaryAssists: (Number(s.I_F_secondaryAssists || 0) + Number(updated.I_F_secondaryAssists || 0)).toString(),
-					I_F_hits: (Number(s.I_F_hits || 0) + Number(updated.I_F_hits || 0)).toString()
+					I_F_hits: (Number(s.I_F_hits || 0) + Number(updated.I_F_hits || 0)).toString(),
+					shotsBlockedByPlayer: (Number(s.shotsBlockedByPlayer || 0) + Number(updated.shotsBlockedByPlayer || 0)).toString(),
+					OnIce_A_goals: (Number(s.OnIce_A_goals || 0) + Number(updated.OnIce_A_goals || 0)).toString(),
+					OnIce_F_goals: (Number(s.OnIce_F_goals || 0) + Number(updated.OnIce_F_goals || 0)).toString()
 				};
 			} else {
 				return s;
@@ -464,14 +469,20 @@ console.log('Season results exported to /results/season.json');
 // Shots = 0.25 points
 // Hits = 0.5 points
 // Blocks = 0.5 points
+// PlusMinus = 1 point per differential
 // console.log('\nSeason Skater Stats:');
+
+// Calculate OnIce_F_goals and OnIce_A_goals for each player
 skaters_new = skaters_new.map(s => {
 	const goals = Number(s.I_F_goals || 0);
 	const shots = Number(s.I_F_shotsOnGoal || 0);
 	const assists = Number(s.I_F_assists || 0);
 	const hits = Number(s.I_F_hits || 0);
 	const shotsBlocked = Number(s.shotsBlockedByPlayer || 0);
-	const points = (goals * 3) + (assists * 2) + (shots * 0.25) + (hits * 0.5) + (shotsBlocked * 0.5);
+	const plusMinus = Number(s.OnIce_F_goals || 0) - Number(s.OnIce_A_goals || 0);
+	// console.log(plusMinus)
+	// Calculate points
+	const points = (goals * 3) + (assists * 2) + (shots * 0.25) + (hits * 0.5) + (shotsBlocked * 0.5) + (plusMinus * 1);
 	return {
 		...s,
 		points
