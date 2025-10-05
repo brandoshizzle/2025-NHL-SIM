@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NHL Season Results</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<style>
+		body {
+			background: #f5f5f5;
+		}
+	</style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+	<section class="py-8">
+		<div class="container mx-auto px-4">
+			<h1 class="text-3xl font-bold text-center mb-8">2025 NHL Season Results</h1>
+			<div id="weekNav" class="flex flex-wrap justify-center gap-2 mb-2"></div>
+			<hr class="mb-4">
+			<div class="text-center mb-4 text-gray-700">Click on a day to jump to its games</div>
+			<div id="dayNav" class="flex flex-wrap justify-center gap-2 mb-6"></div>
+			<div id="results"></div>
+		</div>
+	</section>
+	<script>
+		let seasonData = {};
+		let weeks = [];
+		let weekDates = [];
+		let currentWeek = 0;
+
+		function getWeekNumber (dateStr) {
+			const d = new Date(dateStr);
+			const start = new Date(Object.keys(seasonData)[0]);
+			const diff = d - start;
+			return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+		}
+
+		function groupByWeek () {
+			const byWeek = {};
+			weekDates = [];
+			Object.keys(seasonData).sort((a, b) => new Date(a) - new Date(b)).forEach(date => {
+				const week = getWeekNumber(date);
+				if (!byWeek[week]) {
+					byWeek[week] = [];
+					weekDates[week] = date;
+				}
+				byWeek[week].push({ date, games: seasonData[date].games });
+			});
+			weeks = Object.keys(byWeek).map(w => byWeek[w]);
+		}
+
+		function renderWeekNav () {
+			const nav = document.getElementById('weekNav');
+			nav.innerHTML = '';
+			weeks.forEach((_, i) => {
+				const btn = document.createElement('button');
+				btn.className = 'px-4 py-2 rounded font-semibold ' + (i === currentWeek ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 border border-blue-600 hover:bg-blue-100');
+				// Format date as 'Mon DD'
+				const dateObj = new Date(weekDates[i]);
+				const month = dateObj.toLocaleString('en-US', { month: 'short' });
+				const day = dateObj.getDate();
+				btn.textContent = `Week ${i + 1} (${month} ${day})`;
+				btn.onclick = () => { currentWeek = i; renderResults(); renderWeekNav(); renderDayNav(); };
+				nav.appendChild(btn);
+			});
+		}
+
+		function renderDayNav () {
+			const nav = document.getElementById('dayNav');
+			nav.innerHTML = '';
+			const week = weeks[currentWeek];
+			week.forEach(day => {
+				const dateObj = new Date(day.date);
+				const weekday = dateObj.toLocaleString('en-US', { weekday: 'short' });
+				const month = dateObj.toLocaleString('en-US', { month: 'short' });
+				const dayNum = dateObj.getDate();
+				const label = `${weekday} ${month} ${dayNum} (${day.games.length} game${day.games.length !== 1 ? 's' : ''})`;
+				const btn = document.createElement('button');
+				btn.className = 'px-3 py-1 rounded font-semibold bg-white text-blue-600 border border-blue-600 hover:bg-blue-100';
+				btn.textContent = label;
+				btn.onclick = () => {
+					const el = document.getElementById('day-' + day.date);
+					if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				};
+				nav.appendChild(btn);
+			});
+		}
+
+		function renderResults () {
+			const container = document.getElementById('results');
+			container.innerHTML = '';
+			const week = weeks[currentWeek];
+			week.forEach(day => {
+				const dayDiv = document.createElement('div');
+				dayDiv.className = 'bg-white rounded shadow p-4 mb-6';
+				dayDiv.id = 'day-' + day.date;
+				const dateTitle = document.createElement('h2');
+				dateTitle.className = 'text-xl font-semibold mb-4';
+				const dateObj = new Date(day.date);
+				dateTitle.textContent = dateObj.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+				dayDiv.appendChild(dateTitle);
+				day.games.forEach(game => {
+					const card = document.createElement('div');
+					card.className = 'flex flex-row items-start gap-4 border-b last:border-b-0 py-4';
+					let goalsSummary = '';
+					let allGoals = [];
+					if (game.home && game.home.scorers) {
+						game.home.scorers.forEach(scorer => {
+							if (scorer.goals && Array.isArray(scorer.goals)) {
+								scorer.goals.forEach(goalObj => {
+									allGoals.push({
+										time: goalObj.time,
+										team: game.home.name,
+										scorer: scorer.name,
+										assists: goalObj.assists || []
+									});
+								});
+							}
+						});
+					}
+					if (game.away && game.away.scorers) {
+						game.away.scorers.forEach(scorer => {
+							if (scorer.goals && Array.isArray(scorer.goals)) {
+								scorer.goals.forEach(goalObj => {
+									allGoals.push({
+										time: goalObj.time,
+										team: game.away.name,
+										scorer: scorer.name,
+										assists: goalObj.assists || []
+									});
+								});
+							}
+						});
+					}
+					// Sort and group by period
+					const periods = [[], [], []];
+					allGoals.forEach(g => {
+						const timeParts = g.time.toString().split(':');
+						const timeNum = parseInt(timeParts[0], 10);
+						if (timeNum < 20) periods[0].push(g);
+						else if (timeNum < 40) periods[1].push(g);
+						else periods[2].push(g);
+					});
+					// Subtract 20 mins from 
+					let periodLabels = ['1st Period', '2nd Period', '3rd Period'];
+					goalsSummary = '';
+					for (let p = 0; p < 3; p++) {
+						if (periods[p].length > 0) {
+							goalsSummary += `<div class=\"mb-2\"><span class=\"font-semibold\">${periodLabels[p]}</span><ul class=\"ml-4 list-disc\">`;
+							// Subtract 20 for 2nd period, 40 for 3rd period to get actual time within the period
+							periods[p].forEach(g => {
+								const timeParts = g.time.toString().split(':');
+								let timeNum = parseInt(timeParts[0], 10);
+								if (p === 1) timeNum -= 20;
+								else if (p === 2) timeNum -= 40;
+								g.time = (timeNum < 10 ? '0' : '') + timeNum + ':' + (timeParts[1] || '00');
+							});
+							periods[p].sort((a, b) => {
+								const aParts = a.time.toString().split(':');
+								const aTimeInSeconds = parseInt(aParts[0], 10) * 60 + parseInt(aParts[1], 10);
+								const bParts = b.time.toString().split(':');
+								const bTimeInSeconds = parseInt(bParts[0], 10) * 60 + parseInt(bParts[1], 10);
+								return aTimeInSeconds - bTimeInSeconds;
+							}).forEach(g => {
+								goalsSummary += `<li class=\"mb-1\"><span class=\"inline-block bg-gray-200 rounded px-2 py-0.5 text-xs mr-2\">${g.time}</span> <span class=\"font-bold\">${g.scorer}</span> <span class=\"text-gray-500\">(${g.team})</span>, `;
+								if (Array.isArray(g.assists) && g.assists.length > 0) {
+									goalsSummary += `<span class=\"text-gray-400 italic\">assisted by ${g.assists.join(" and ")}</span>`;
+								} else {
+									goalsSummary += `<span class=\"text-gray-400 italic\">unassisted</span>`;
+								}
+								goalsSummary += `</li>`;
+							});
+							goalsSummary += `</ul></div>`;
+						}
+					}
+					card.innerHTML = `
+            <div class="flex sm:flex-row items-start gap-4 w-full">
+              <div class="flex flex-1 flex-col w-90 shrink-0">
+                <div class="flex gap-2 mb-2">
+                  <img src="/logos/${game.away.name}.svg" alt="${game.away.name} logo" class="w-16 h-16">
+									<div>
+										<div class="flex gap-2">
+											<span class="text-2xl font-bold">${game.away.name}</span>
+											<div class="text-2xl font-bold text-blue-600">${game.awayScore}</div>
+										</div>
+										<p>Shots: ${game.away.shots || 0}</p>
+										<p>Goalie: ${game.away.goalie || 'N/A'} (${game.home.shots - game.homeScore || 0} saves)</p>
+										${game.away.injured && game.away.injured.length > 0 ?
+							`<div class="mt-2 text-red-700 text-sm font-semibold">Injured: 
+											<ul>`
+							+ game.away.injured.map(p => `<li>${p.name} (${p.injuryName}, out for ${p.injuryGamesLeft} days)</li>`).join('')
+							+ `</ul></div>` : ''}
+									</div>
+                </div>
+                <div class="text-gray-500">@</div>
+                <div class="flex gap-2 mt-2">
+                  <img src="/logos/${game.home.name}.svg" alt="${game.home.name} logo" class="w-16 h-16">
+									<div>
+										<div class="flex gap-2">
+											<span class="text-2xl font-bold">${game.home.name}</span>
+											<div class="text-2xl font-bold text-blue-800">${game.homeScore}</div>
+										</div>
+										<p>Shots: ${game.home.shots || 0}</p>
+										<p>Goalie: ${game.home.goalie || 'N/A'} (${game.away.shots - game.awayScore || 0} saves)</p>
+										${game.home.injured && game.home.injured.length > 0 ?
+							`<div class="mt-2 text-red-700 text-sm font-semibold">Injured: 
+											<ul>` + game.home.injured.map(p => `<li>${p.name} (${p.injuryName}, out for ${p.injuryGamesLeft} days)</li>`).join('') + `</ul></div>` : ''}
+									</div>
+								</div>
+              </div>
+              <div class="flex-1">${goalsSummary}</div>
+            </div>
+          `;
+					dayDiv.appendChild(card);
+				});
+				container.appendChild(dayDiv);
+			});
+		}
+
+		fetch('results/season.json')
+			.then(r => r.json())
+			.then(data => {
+				seasonData = data;
+				groupByWeek();
+				renderWeekNav();
+				renderResults();
+				renderDayNav();
+			});
+	</script>
+</body>
+
+</html>

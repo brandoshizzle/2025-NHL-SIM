@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NHL Season Results</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-css-reset/dist/reset.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<style>
+		body {
+			background: #f5f5f5;
+		}
+
+		.week-nav {
+			margin-bottom: 1.5rem;
+		}
+
+		.game-card {
+			margin-bottom: 1rem;
+		}
+	</style>
+</head>
+
+<body>
+	<section class="section">
+		<div class="container">
+			<h1 class="title has-text-centered">2025 NHL Season Results</h1>
+			<div class="week-nav buttons is-centered" id="weekNav"></div>
+			<div id="results"></div>
+		</div>
+	</section>
+	<script>
+		let seasonData = {};
+		let weeks = [];
+		let weekDates = [];
+		let currentWeek = 0;
+
+		function getWeekNumber (dateStr) {
+			const d = new Date(dateStr);
+			const start = new Date(Object.keys(seasonData)[0]);
+			const diff = d - start;
+			return Math.floor(diff / (7 * 24 * 60 * 60 * 1000));
+		}
+
+		function groupByWeek () {
+			const byWeek = {};
+			weekDates = [];
+			// Sort dates in calendar order
+			Object.keys(seasonData).sort((a, b) => new Date(a) - new Date(b)).forEach(date => {
+				const week = getWeekNumber(date);
+				if (!byWeek[week]) {
+					byWeek[week] = [];
+					weekDates[week] = date;
+				}
+				byWeek[week].push({ date, games: seasonData[date].games });
+			});
+			weeks = Object.keys(byWeek).map(w => byWeek[w]);
+		}
+
+		function renderWeekNav () {
+			const nav = document.getElementById('weekNav');
+			nav.innerHTML = '';
+			weeks.forEach((_, i) => {
+				const btn = document.createElement('button');
+				btn.className = 'button' + (i === currentWeek ? ' is-link' : '');
+				btn.textContent = `Week ${i + 1}`;
+				btn.onclick = () => { currentWeek = i; renderResults(); renderWeekNav(); };
+				nav.appendChild(btn);
+			});
+		}
+
+		function renderResults () {
+			const container = document.getElementById('results');
+			container.innerHTML = '';
+			const week = weeks[currentWeek];
+			week.forEach(day => {
+				const dayDiv = document.createElement('div');
+				dayDiv.className = 'box';
+				const dateTitle = document.createElement('h2');
+				dateTitle.className = 'subtitle';
+				dateTitle.textContent = day.date;
+				dayDiv.appendChild(dateTitle);
+				day.games.forEach(game => {
+					const card = document.createElement('div');
+					card.className = 'card game-card';
+					let goalsSummary = '';
+					// Collect all goals with time, scorer, assists
+					let allGoals = [];
+					// Home goals
+					if (game.home && game.home.scorers) {
+						game.home.scorers.forEach(scorer => {
+							if (scorer.goals && Array.isArray(scorer.goals)) {
+								scorer.goals.forEach(goalObj => {
+									allGoals.push({
+										time: goalObj.time,
+										team: game.home.name,
+										scorer: scorer.name,
+										assists: goalObj.assists || 0 // fallback if not available
+									});
+								});
+							}
+						});
+					}
+					// Away goals
+					if (game.away && game.away.scorers) {
+						game.away.scorers.forEach(scorer => {
+							if (scorer.goals && Array.isArray(scorer.goals)) {
+								scorer.goals.forEach(goalObj => {
+									allGoals.push({
+										time: goalObj.time,
+										team: game.away.name,
+										scorer: scorer.name,
+										assists: goalObj.assists || 0
+									});
+								});
+							}
+						});
+					}
+
+					if (allGoals.length > 0) {
+						// Sort goals by period, then by time
+						const periods = [[], [], []];
+						allGoals.forEach(g => {
+							// Get time pre-colon if format is "12:34"
+							const timeParts = g.time.toString().split(':');
+							const timeNum = parseInt(timeParts[0], 10);
+							if (timeNum < 20) periods[0].push(g);
+							else if (timeNum < 40) periods[1].push(g);
+							else periods[2].push(g);
+						});
+						let periodLabels = ['1st Period', '2nd Period', '3rd Period'];
+						goalsSummary = '';
+						for (let p = 0; p < 3; p++) {
+							if (periods[p].length > 0) {
+								goalsSummary += `<div class=\"content\"><strong>${periodLabels[p]}</strong><ul>`;
+								console.log(periods[p]);
+								// Subtract 20 for 2nd period, 40 for 3rd period to get actual time within the period
+								periods[p].forEach(g => {
+									const timeParts = g.time.toString().split(':');
+									let timeNum = parseInt(timeParts[0], 10);
+									if (p === 1) timeNum -= 20;
+									else if (p === 2) timeNum -= 40;
+									g.time = (timeNum < 10 ? '0' : '') + timeNum + ':' + (timeParts[1] || '00');
+								});
+								periods[p].sort((a, b) => {
+									// Change time from "MM:SS" to total seconds for accurate sorting
+									const aParts = a.time.toString().split(':');
+									const aTimeInSeconds = parseInt(aParts[0], 10) * 60 + parseInt(aParts[1], 10);
+									const bParts = b.time.toString().split(':');
+									const bTimeInSeconds = parseInt(bParts[0], 10) * 60 + parseInt(bParts[1], 10);
+									return aTimeInSeconds - bTimeInSeconds;
+								}).forEach(g => {
+									goalsSummary += `<li><span class=\"tag is-light\">${g.time}</span> <strong>${g.scorer}</strong> (${g.team}), `;
+									if (Array.isArray(g.assists) && g.assists.length > 0) {
+										goalsSummary += `assisted by ${g.assists.join(" and ")}`;
+									} else {
+										goalsSummary += `unassisted`;
+									}
+									goalsSummary += `</li>`;
+								});
+								goalsSummary += `</ul></div>`;
+							}
+						}
+					}
+					card.innerHTML = `
+						<div class="card-content">
+						  <div class="columns is-vcentered">
+							<div class="column is-3 has-text-centered">
+							  <img src="/logos/${game.away.name}.svg" alt="${game.away.name} logo" width="128" style="vertical-align:middle;margin-right:0.5em;">
+							  <strong>${game.away.name}</strong>
+							  <span class="tag is-info">${game.awayScore}</span>
+							  <span style="margin:0 0.5em;">@</span>
+							  <span class="tag is-primary">${game.homeScore}</span>
+							  <strong>${game.home.name}</strong>
+							  <img src="/logos/${game.home.name}.svg" alt="${game.home.name} logo" width="128" style="vertical-align:middle;margin-left:0.5em;">
+							</div>
+							<div class="column is-9">
+							  ${goalsSummary}
+							</div>
+						  </div>
+						</div>
+					`;
+					dayDiv.appendChild(card);
+				});
+				container.appendChild(dayDiv);
+			});
+		}
+
+		fetch('results/season.json')
+			.then(r => r.json())
+			.then(data => {
+				seasonData = data;
+				groupByWeek();
+				renderWeekNav();
+				renderResults();
+			});
+	</script>
+</body>
+
+</html>

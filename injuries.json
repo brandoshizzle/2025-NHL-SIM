@@ -1,0 +1,162 @@
+[
+	{
+		"name": "Concussion",
+		"minGames": 3,
+		"maxGames": 10
+	},
+	{
+		"name": "Broken arm",
+		"minGames": 8,
+		"maxGames": 20
+	},
+	{
+		"name": "Broken leg",
+		"minGames": 10,
+		"maxGames": 30
+	},
+	{
+		"name": "Sprained ankle",
+		"minGames": 2,
+		"maxGames": 6
+	},
+	{
+		"name": "Groin strain",
+		"minGames": 2,
+		"maxGames": 8
+	},
+	{
+		"name": "Knee injury",
+		"minGames": 5,
+		"maxGames": 20
+	},
+	{
+		"name": "Shoulder separation",
+		"minGames": 6,
+		"maxGames": 16
+	},
+	{
+		"name": "Dislocated shoulder",
+		"minGames": 6,
+		"maxGames": 18
+	},
+	{
+		"name": "Broken hand",
+		"minGames": 4,
+		"maxGames": 12
+	},
+	{
+		"name": "Broken finger",
+		"minGames": 1,
+		"maxGames": 4
+	},
+	{
+		"name": "High ankle sprain",
+		"minGames": 6,
+		"maxGames": 12
+	},
+	{
+		"name": "Lower body injury",
+		"minGames": 2,
+		"maxGames": 8
+	},
+	{
+		"name": "Upper body injury",
+		"minGames": 2,
+		"maxGames": 8
+	},
+	{
+		"name": "Rib injury",
+		"minGames": 2,
+		"maxGames": 6
+	},
+	{
+		"name": "Back injury",
+		"minGames": 4,
+		"maxGames": 16
+	},
+	{
+		"name": "Hip injury",
+		"minGames": 4,
+		"maxGames": 12
+	},
+	{
+		"name": "Laceration",
+		"minGames": 1,
+		"maxGames": 3
+	},
+	{
+		"name": "Eye injury",
+		"minGames": 4,
+		"maxGames": 10
+	},
+	{
+		"name": "Jaw injury",
+		"minGames": 4,
+		"maxGames": 10
+	},
+	{
+		"name": "Neck strain",
+		"minGames": 2,
+		"maxGames": 6
+	},
+	{
+		"name": "Bruised foot",
+		"minGames": 1,
+		"maxGames": 3
+	},
+	{
+		"name": "Bruised ribs",
+		"minGames": 1,
+		"maxGames": 4
+	},
+	{
+		"name": "Pulled hamstring",
+		"minGames": 3,
+		"maxGames": 8
+	},
+	{
+		"name": "Torn ACL",
+		"minGames": 20,
+		"maxGames": 40
+	},
+	{
+		"name": "Torn MCL",
+		"minGames": 10,
+		"maxGames": 30
+	},
+	{
+		"name": "Torn meniscus",
+		"minGames": 8,
+		"maxGames": 20
+	},
+	{
+		"name": "Broken collarbone",
+		"minGames": 8,
+		"maxGames": 16
+	},
+	{
+		"name": "Fractured wrist",
+		"minGames": 4,
+		"maxGames": 12
+	},
+	{
+		"name": "Broken nose",
+		"minGames": 1,
+		"maxGames": 3
+	},
+	{
+		"name": "Severe cut",
+		"minGames": 1,
+		"maxGames": 4
+	},
+	{
+		"name": "Dental injury",
+		"minGames": 1,
+		"maxGames": 2
+	},
+	{
+		"name": "Illness",
+		"minGames": 1,
+		"maxGames": 3
+	}
+]
