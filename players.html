@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Player Fantasy Points</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+	<div class="container mx-auto px-4 py-8">
+		<h1 class="text-3xl font-bold text-center mb-8">2025 NHL Fantasy Player Results</h1>
+		<div class="flex justify-center gap-4 mb-8">
+			<button id="showSkaters" class="px-4 py-2 rounded font-semibold bg-blue-600 text-white">Show Skaters</button>
+			<button id="showGoalies"
+				class="px-4 py-2 rounded font-semibold bg-white text-blue-600 border border-blue-600 hover:bg-blue-100">Show
+				Goalies</button>
+		</div>
+		<div id="skaterSection" class="mb-12">
+			<h2 class="text-2xl font-semibold mb-4">Skaters</h2>
+			<div class="overflow-x-auto">
+				<table id="skaterTable" class="min-w-full bg-white rounded shadow">
+					<thead class="bg-blue-600 text-white">
+						<tr>
+							<th class="px-4 py-2">#</th>
+							<th class="px-4 py-2">Name</th>
+							<th class="px-4 py-2">Team</th>
+							<th class="px-4 py-2">Pos</th>
+							<th class="px-4 py-2">GP</th>
+							<th class="px-4 py-2">G</th>
+							<th class="px-4 py-2">A</th>
+							<th class="px-4 py-2">SOG</th>
+							<th class="px-4 py-2">Hits</th>
+							<th class="px-4 py-2">Blocks</th>
+							<th class="px-4 py-2">Points</th>
+							<th class="px-4 py-2">Taken</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+		<div id="goalieSection" style="display:none;">
+			<h2 class="text-2xl font-semibold mb-4">Goalies</h2>
+			<div class="overflow-x-auto">
+				<table id="goalieTable" class="min-w-full bg-white rounded shadow">
+					<thead class="bg-blue-600 text-white">
+						<tr>
+							<th class="px-4 py-2">#</th>
+							<th class="px-4 py-2">Name</th>
+							<th class="px-4 py-2">Team</th>
+							<th class="px-4 py-2">GP</th>
+							<th class="px-4 py-2">Wins</th>
+							<th class="px-4 py-2">Shutouts</th>
+							<th class="px-4 py-2">Saves</th>
+							<th class="px-4 py-2">GA</th>
+							<th class="px-4 py-2">Points</th>
+							<th class="px-4 py-2">Taken</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script>
+		function getTakenSet (key) {
+			return new Set(JSON.parse(localStorage.getItem(key) || '[]'));
+		}
+		function setTakenSet (key, set) {
+			localStorage.setItem(key, JSON.stringify(Array.from(set)));
+		}
+		function renderTableRows (data, tbody, takenSet, key) {
+			tbody.innerHTML = data.map((p, i) => {
+				const isTaken = takenSet.has(p.name);
+				return `
+          <tr class="${i % 2 === 0 ? 'bg-gray-50' : ''} ${isTaken ? 'bg-gray-300 text-gray-400' : ''}">
+            <td class="px-4 py-2 text-center">${i + 1}</td>
+            <td class="px-4 py-2">${p.name}</td>
+            <td class="px-4 py-2 text-center">${p.team}</td>
+            ${p.position ? `<td class=\"px-4 py-2 text-center\">${p.position}</td>` : ''}
+            <td class="px-4 py-2 text-center">${p.games_played}</td>
+            ${p.I_F_goals !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.I_F_goals}</td>` : ''}
+            ${p.I_F_primaryAssists !== undefined ? `<td class=\"px-4 py-2 text-center\">${Number(p.I_F_primaryAssists || 0) + Number(p.I_F_secondaryAssists || 0)}</td>` : ''}
+            ${p.I_F_shotsOnGoal !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.I_F_shotsOnGoal}</td>` : ''}
+            ${p.I_F_hits !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.I_F_hits}</td>` : ''}
+            ${p.shotsBlockedByPlayer !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.shotsBlockedByPlayer}</td>` : ''}
+            ${p.wins !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.wins}</td>` : ''}
+            ${p.shutouts !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.shutouts}</td>` : ''}
+            ${p.unblocked_shot_attempts !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.unblocked_shot_attempts - p.goals}</td>` : ''}
+            ${p.goals !== undefined ? `<td class=\"px-4 py-2 text-center\">${p.goals}</td>` : ''}
+            <td class="px-4 py-2 text-center font-bold">${p.points !== undefined ? p.points.toFixed(2) : ''}</td>
+            <td class="px-4 py-2 text-center">
+              <input type="checkbox" data-name="${p.name}" ${isTaken ? 'checked' : ''}>
+            </td>
+          </tr>
+        `;
+			}).join('');
+			// Add event listeners for checkboxes
+			tbody.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+				cb.addEventListener('change', function () {
+					const name = this.getAttribute('data-name');
+					if (this.checked) {
+						takenSet.add(name);
+					} else {
+						takenSet.delete(name);
+					}
+					setTakenSet(key, takenSet);
+					renderTableRows(data, tbody, takenSet, key);
+				});
+			});
+		}
+		async function loadAndRender () {
+			// Skaters
+			const skaterRes = await fetch('results/skaters.json');
+			const skaters = await skaterRes.json();
+			skaters.sort((a, b) => b.points - a.points);
+			const skaterTbody = document.querySelector('#skaterTable tbody');
+			const skaterTaken = getTakenSet('skaterTaken');
+			renderTableRows(skaters, skaterTbody, skaterTaken, 'skaterTaken');
+			// Goalies
+			const goalieRes = await fetch('results/goalies.json');
+			const goalies = await goalieRes.json();
+			goalies.sort((a, b) => b.points - a.points);
+			const goalieTbody = document.querySelector('#goalieTable tbody');
+			const goalieTaken = getTakenSet('goalieTaken');
+			renderTableRows(goalies, goalieTbody, goalieTaken, 'goalieTaken');
+		}
+		// Toggle logic
+		document.addEventListener('DOMContentLoaded', function () {
+			const skaterSection = document.getElementById('skaterSection');
+			const goalieSection = document.getElementById('goalieSection');
+			const showSkaters = document.getElementById('showSkaters');
+			const showGoalies = document.getElementById('showGoalies');
+			showSkaters.addEventListener('click', function () {
+				skaterSection.style.display = '';
+				goalieSection.style.display = 'none';
+				showSkaters.className = 'px-4 py-2 rounded font-semibold bg-blue-600 text-white';
+				showGoalies.className = 'px-4 py-2 rounded font-semibold bg-white text-blue-600 border border-blue-600 hover:bg-blue-100';
+			});
+			showGoalies.addEventListener('click', function () {
+				skaterSection.style.display = 'none';
+				goalieSection.style.display = '';
+				showGoalies.className = 'px-4 py-2 rounded font-semibold bg-blue-600 text-white';
+				showSkaters.className = 'px-4 py-2 rounded font-semibold bg-white text-blue-600 border border-blue-600 hover:bg-blue-100';
+			});
+			loadAndRender();
+		});
+	</script>
+</body>
+
+</html>

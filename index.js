@@ -465,18 +465,18 @@ console.log('Season results exported to /results/season.json');
 // Hits = 0.5 points
 // Blocks = 0.5 points
 // console.log('\nSeason Skater Stats:');
-// skaters_new = skaters_new.map(s => {
-// 	const goals = Number(s.I_F_goals || 0);
-// 	const shots = Number(s.I_F_shotsOnGoal || 0);
-// 	const assists = Number(s.I_F_assists || 0);
-// 	const hits = Number(s.I_F_hits || 0);
-// 	const shotsBlocked = Number(s.shotsBlockedByPlayer || 0);
-// 	const points = (goals * 3) + (assists * 2) + (shots * 0.25) + (hits * 0.5) + (shotsBlocked * 0.5);
-// 	return {
-// 		...s,
-// 		points
-// 	};
-// }).sort((a, b) => b.points - a.points);
+skaters_new = skaters_new.map(s => {
+	const goals = Number(s.I_F_goals || 0);
+	const shots = Number(s.I_F_shotsOnGoal || 0);
+	const assists = Number(s.I_F_assists || 0);
+	const hits = Number(s.I_F_hits || 0);
+	const shotsBlocked = Number(s.shotsBlockedByPlayer || 0);
+	const points = (goals * 3) + (assists * 2) + (shots * 0.25) + (hits * 0.5) + (shotsBlocked * 0.5);
+	return {
+		...s,
+		points
+	};
+}).sort((a, b) => b.points - a.points);
 
 fs.writeFileSync(
 	path.join(__dirname, 'results', 'skaters.json'),
@@ -498,17 +498,17 @@ fs.writeFileSync(
 // Saves = 0.3 points
 // Goals against = -1 point
 // console.log('\nSeason Goalie Stats:');
-// goalies_new = goalies_new.map(g => {
-// 	const wins = Number(g.wins || 0);
-// 	const shutouts = Number(g.shutouts || 0);
-// 	const saves = Number(g.unblocked_shot_attempts - g.goals || 0);
-// 	const goalsAgainst = Number(g.goals || 0);
-// 	const points = Math.round((wins * 2.5) + (shutouts * 2.5) + (saves * 0.3) + (goalsAgainst * -1));
-// 	return {
-// 		...g,
-// 		points
-// 	};
-// }).sort((a, b) => b.points - a.points);
+goalies_new = goalies_new.map(g => {
+	const wins = Number(g.wins || 0);
+	const shutouts = Number(g.shutouts || 0);
+	const saves = Number(g.unblocked_shot_attempts - g.goals || 0);
+	const goalsAgainst = Number(g.goals || 0);
+	const points = Math.round((wins * 2.5) + (shutouts * 2.5) + (saves * 0.3) + (goalsAgainst * -1));
+	return {
+		...g,
+		points
+	};
+}).sort((a, b) => b.points - a.points);
 
 fs.writeFileSync(
 	path.join(__dirname, 'results', 'goalies.json'),
